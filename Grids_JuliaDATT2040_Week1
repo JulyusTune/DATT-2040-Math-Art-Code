@@ -1,0 +1,83 @@
+//click to roll Dice
+
+//how many collumns and rows in grid
+int cols = 10;
+int rows = 10;
+
+//spacing in the grid (stepsize)
+int stepx, stepy;
+
+//size of the canvas
+void setup() {
+  size(500, 500);
+
+  //value of stepsizes
+  stepx = (width / cols);
+  stepy = (height / rows);
+
+  fill(255);
+}
+
+void draw() {
+}
+
+//trigger our diceroll
+void mouseReleased() {
+  diceroll();
+}
+
+int col = -1;
+int row = 0;
+
+//diceroll function
+void diceroll() {
+
+  //each time we click our function col will add 1 to itself
+  col++; 
+
+  //if col is bigger than the the number of cols in the grid, return to 0 then repeats
+  if (col >= cols) {
+    col = 0;
+    row++;
+  }
+  
+  //a random operation to roll random values between 0 - 3
+
+  int dice = int(random(4));
+  println(dice);
+
+  //variables for our x and y positions
+  float x = col*stepx;
+  float y = row*stepy;
+
+  //variable for our linesize
+  int linesize = stepx;
+
+  //draw an ellipse 5*5 pixels wide at each xy coordinate.   
+  ellipse(x, y, 5, 5);
+
+  //if the dice rolls a 0 we select "case 0", if it rolls a 1 "case 1" etc...
+  //rolls generate simple line drawings -- up, down, left, right
+  switch(dice) {
+  case 0: 
+  stroke(153, 110, 196);
+        line(x, y, x, y+linesize);
+    line(x, y, x+linesize, y);
+    break;
+  case 1: 
+  stroke(213, 100, 196);
+        line(x, y, x, y+linesize);
+    line(x, y, x, y+linesize);
+    break;
+  case 2: 
+  stroke(73, 110, 196);
+        line(x, y, x, y+linesize);
+    line(x, y, x-linesize, y);
+    break;
+  case 3: 
+  stroke(40, 110, 196);
+        line(x, y, x, y+linesize);
+    line(x, y, x, y-linesize);
+    break;
+  }
+}
